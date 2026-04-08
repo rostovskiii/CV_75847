@@ -14,6 +14,18 @@
     --font-body: "Outfit", system-ui, sans-serif;
 }
 
+body.theme-red {
+    --accent-a: #ef4444;
+    --accent-b: #dc2626;
+    --accent-c: #f87171;
+}
+
+body.theme-green {
+    --accent-a: #22c55e;
+    --accent-b: #16a34a;
+    --accent-c: #4ade80;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -433,6 +445,19 @@ a:hover {
     border-color: rgba(6, 182, 212, 0.4);
     color: #fff;
     transform: translateY(-2px);
+}
+
+.btn--theme-toggle {
+    margin-top: 1.25rem;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text);
+    cursor: pointer;
+}
+
+.btn--theme-toggle:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.22);
 }
 
 .skill-tags {
