@@ -1,6 +1,36 @@
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const revealEls = document.querySelectorAll(".reveal");
+const themeToggleBtn = document.querySelector("#themeToggleBtn");
+const themeStorageKey = "site-theme";
+const themeStylesheet = document.querySelector('link[rel="stylesheet"][href="red.css"], link[rel="stylesheet"][href="green.css"], link[rel="stylesheet"][href="style.css"]');
+
+function applyTheme(themeName) {
+    if (!themeStylesheet) return;
+
+    const stylesheetName = themeName === "green" ? "green.css" : "red.css";
+    themeStylesheet.setAttribute("href", stylesheetName);
+
+    if (themeToggleBtn) {
+        const nextThemeLabel = themeName === "red" ? "Switch to green theme" : "Switch to red theme";
+        themeToggleBtn.textContent = nextThemeLabel;
+    }
+}
+
+function initThemeToggle() {
+    const savedTheme = localStorage.getItem(themeStorageKey);
+    const initialTheme = savedTheme === "green" ? "green" : "red";
+    applyTheme(initialTheme);
+
+    if (!themeToggleBtn) return;
+
+    themeToggleBtn.addEventListener("click", () => {
+        const currentIsRed = themeStylesheet && themeStylesheet.getAttribute("href") === "red.css";
+        const nextTheme = currentIsRed ? "green" : "red";
+        applyTheme(nextTheme);
+        localStorage.setItem(themeStorageKey, nextTheme);
+    });
+}
 
 function initRevealToggle() {
     if (!revealEls.length) return;
@@ -31,3 +61,4 @@ function initRevealToggle() {
 }
 
 initRevealToggle();
+initThemeToggle();
